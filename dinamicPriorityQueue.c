@@ -28,8 +28,12 @@ typedef struct{
 	int size;
 }Queue;
 
-//cria e inicializa uma estrutura
-Queue *inicializaQueue(Queue* q){
+/**
+ * create and inicialize structure.
+ *
+ * @returns a pointer of type Queue, with first and last pointing to null and size zero.
+ */
+Queue *initializeQueue(){
 	Queue* p;
 	p = (Queue*) calloc(1, sizeof(Queue));
 	p->first = NULL;
@@ -37,156 +41,155 @@ Queue *inicializaQueue(Queue* q){
 	p->size = 0;
 	return p;	
 }
-//insere elementos
-int enQueue(Queue* q, ItemType e){
-	Node* new;
-	Node* anterior;
+
+/**
+ * Inserts Elements.
+ *
+ * @param Queue* queue, pointer of type Queue.
+ * @param ItemType element, the element to be inserted in the Queue.
+ * Inserts element ordering in ascending order.
+ *
+ * @returns 0 if the element has been successfully inserted.
+ */
+int enQueue(Queue* queue, ItemType element){
+	Node* newNode;
+	Node* backNode;
 	Node* aux;
-	new = (Node*) calloc(1, sizeof(Node));
-	new->data = e;
+	newNode = (Node*) calloc(1, sizeof(Node));
+	newNode->data = element;
 
-	if((q->first == NULL) && (q->last == NULL)){
-		q->last = new;
-		q->first = new;
-		q->size++;
-		new->next = NULL; 
-		printf("Elemento inserido na 1°opcao.\n");
-		return 1;	
+	if((queue->first == NULL) && (queue->last == NULL)){
+		queue->last = newNode;
+		queue->first = newNode;
+		queue->size++;
+		newNode->next = NULL; 
+		return 0;	
 	}
 
-	if(q->first->data > e){
-		new->next = q->first;
-		q->first = new;
-		q->size++;
-		return 1;
+	if(queue->first->data > element){
+		newNode->next = queue->first;
+		queue->first = newNode;
+		queue->size++;
+		return 0;
 	}
 
-	if(q->last->data < e){
-		q->last->next = new;
-		q->last = new;
-		new->next = NULL;
-		q->size++;
-		return 1;
+	if(queue->last->data < element){
+		queue->last->next = newNode;
+		queue->last = newNode;
+		newNode->next = NULL;
+		queue->size++;
+		return 0;
 	}
 
-	anterior = q->first;
-	aux = q->first->next;
-	while(aux->data < e){
-		anterior = aux;
+	backNode = queue->first;
+	aux = queue->first->next;
+	while(aux->data < element){
+		backNode = aux;
 		aux = aux->next;
 	}
-	new->next = aux;	
-	anterior->next = new;
-	q->size++;
+	newNode->next = aux;	
+	backNode->next = newNode;
+	queue->size++;
 
-	return 1;
+	return 0;
 }
 
-int deQueue(Queue* q, ItemType*e){
-	Node* new;
-	if(q->first == NULL){
+/**
+ * Remove Elements.
+ *
+ * @param Queue* queue, pointer of type Queue.
+ * @param ItemType element, the element to be removed in the Queue.
+ * And the removed element is returned by parameter.
+ *
+ * @returns 0 if element is successfully removed, or -1 if element was not removed.
+ */
+int deQueue(Queue* queue, ItemType* element){
+	Node* newNode;
+	if(queue->first == NULL){
 		return -1;
 	}
 	else{
-		*e = q->first->data;
-		new = q->first;
-		q->first = new->next;
-		free(new);
-		q->size--;
+		*element = queue->first->data;
+		newNode = queue->first;
+		queue->first = newNode->next;
+		free(newNode);
+		queue->size--;
 		return 0;
 	}
 }
-//retorna elemento do topo
-int peek(Queue* q, ItemType* e){
-	if(q->first == NULL){
+
+/**
+ * First queue element;
+ *
+ * @param Queue* queue, pointer of type Queue.
+ * @param ItemType element, the element to be removed in the Queue.
+ * And returned first element by parameter.
+ *
+ * @returns 0 if successfully, or -1 if empty queue.
+ */
+int peek(Queue* queue, ItemType* element){
+	if(queue->first == NULL){
 		return -1;
 	}
 	else{
-		*e = q->first->data;
+		*element = queue->first->data;
 		return 0;	
 	}
 }
-//verifica se um elemento está na fila
-int contains(Queue* q, ItemType e){
-	Node* new = q->first;
-	while(new != NULL){
-		if(new->data == e){
+
+/**
+ * Verifies that an element is in the queue.
+ *
+ * @param Queue* queue, a pointer of type Queue.
+ * @param ItemType element, element sought in the queue.
+ *
+ * @returns 0 if element was found, or -1 if the element was not found.
+ */
+int contains(Queue* queue, ItemType element){
+	Node* newNode = queue->first;
+	while(newNode != NULL){
+		if(newNode->data == element){
 			return 0;
 		}
 		else{
-			new = new->next;
+			newNode = newNode->next;
 		}
 	}
 	return -1;
 }
 
-//retorna o tamanho fa fila;
-int sizeQueue(Queue* q){
-	return q->size;
+/**
+ * Size Queue.
+ *
+ * @param Queue* queue, a pointer of type Queue.
+ *
+ * @returns size Queue,
+ */
+int sizeQueue(Queue* queue){
+	return queue->size;
 }
 
-//verifica se a pilha está vazia
-int isEmptyQueue(Queue* q){
-	return(q->size == 0? 1 : 0);
+/**
+ * Verifies that the queue is empty.
+ *
+ * @param Queue* queue, a pointer of type Queue.
+ *
+ * @returns 0 if the queue is empty, or -1 if the queue is not empty
+ */
+int isEmptyQueue(Queue* queue){
+	return(queue->size == 0? 0 : -1);
 }
 
-//imprime Queue
-void printQueue(Queue* q){
-	Node* new = q->first;
-	while(new != NULL){
-		printf("%d\n", new->data);
-		new= new->next;
+/**
+ * Prints the elements of the queue .
+ *
+ * @param Queue* queue, a pointer of type Queue.
+ *
+ */
+void printQueue(Queue* queue){
+	Node* newNode = queue->first;
+	while(newNode != NULL){
+		printf("%d\n", newNode->data);
+		newNode= newNode->next;
 	}
 }
-
-
-/* exemplos de como utiliza*/
-int main (){
-	Queue* newQueue;
-	ItemType e = 0, e1 = 40, e2 = 0, e3 = 4, e4 = 250, e5 = 60, elemento;
-	int recebe = 0;
-	newQueue = inicializaQueue(newQueue);
-	enQueue(newQueue, e);
-	enQueue(newQueue, e1);
-	enQueue(newQueue, e2);
-	enQueue(newQueue, e3);
-	enQueue(newQueue, e4);
-	enQueue(newQueue, e5);
-
-	printQueue(newQueue);
-
-	recebe = deQueue(newQueue, &elemento);
-	if(recebe == 0){
-		printf("elemento removido: %d\n", elemento);
-	}
-	else{
-		printf("elemento nao removido.\n");
-	}
-
-	recebe = peek(newQueue, &elemento);
-	if(recebe == 0){
-		printf("elemento do inicio eh: %d\n", elemento);
-	}
-	else{
-		printf("fila vazia.\n");
-	}
-
-	elemento = 20;
-	recebe = contains(newQueue, elemento);
-	if(recebe == 0){
-		printf("elemento encontrado\n");
-	}
-	else{
-		printf("elemento nao encontrado.\n");
-	}
-	printf("a quantidade de elementos eh: %d\n", sizeQueue(newQueue));	
-	recebe = isEmptyQueue(newQueue);
-	if(recebe == 0){
-		printf("fila não esta vazia\n");
-	}
-	else{
-		printf("Fila está vazia\n");
-	}
-	return 0;
-}
-

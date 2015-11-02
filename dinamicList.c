@@ -113,9 +113,10 @@ void addList(List* list, ItemType element, int index){
  * Removes element by index.
  *
  * @param List* list, pointer of type List.
- * @param ItemType element, the element to be removed in the List.
+ * @param ItemType element, parameter used to send the element found..
  * @param int index, the index removal will be done.
  * And the removed element is returned by parameter.
+ *
  * @returns 0 if element is successfully removed, or -1 if element was not removed.
  */
 int removeList(List* list, ItemType* element, int index){

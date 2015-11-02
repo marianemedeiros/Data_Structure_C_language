@@ -26,118 +26,124 @@ typedef struct{
 	Node *top;
 	int size;
 }Stack;
-// inciliza a a estrutura
-Stack* inicializaStack(Stack* p){
+
+
+/**
+ * create and inicialize structure.
+ *
+ * @returns a pointer of type Stack, with first and last pointing to null and size zero.
+ */
+Stack* initializeStack(){
+	Stack* p;
 	p = (Stack*) calloc(1, sizeof(Stack)); 
 	p->top = NULL;
 	p->size = 0;
 	return p;
 }
-//insere o elemento
-void push(Stack *s, ItemType e){   
-	Node* aux;
-	aux = (Node*) calloc(1,sizeof(Node)); 
-	aux->data = e;
-	aux->next = s->top;
-	s->top = aux;
-	s->size ++;
-}
-//remove o elemento do topo
-int pop(Stack* s, ItemType* e){
-	if(s->size == 0)return 0;
-	Node* aux;
-	aux = s->top;
-	*e = aux->data;
-	s->top = aux->next;
-	s->size --;
-	free(aux);
-	return 1;
+
+/**
+ * Inserts Elements.
+ *
+ * @param Stack* stack, pointer of type Stack.
+ * @param ItemType element, the element to be inserted in the stack.
+ *
+ */
+void push(Stack* stack, ItemType element){   
+	Node* newNode;
+	newNode = (Node*) calloc(1,sizeof(Node)); 
+	newNode->data = element;
+	newNode->next = stack->top;
+	stack->top = newNode;
+	stack->size ++;
 }
 
-//imprime a pilha
-void printStack(Stack* s){
-	int i;
-	Node* aux;
-	aux = s->top;
-	for(i = 0; i < s->size; i++){
-		printf("elemento %d = %d\n", i, aux->data);
-		aux = aux->next;
-	}
-}
-//funcao verifica se tem um elemento na fila
-int containsStack(Stack* s, ItemType e){
-	int i, cont = 0; 
-	Node* aux;
-	aux = s->top;
-	for(i = 0; i < s->size; i++){
-		if(e == aux->data){
-			cont++;
-		}
-		aux = aux->next;
-	}
-	if(cont > 0){
-		return 1;
-	}
-	else{
-		return 0;
-	}
-}
-//funcao que retrona tamanho da Stack
-int sizeStack(Stack* s){
-	return s->size;
-}
-
-//funcao que retorna o elemento do topo
-void topStack(Stack* s, ItemType *e){
-	*e = s->top->data;
-}
-
-//funcao que verifica se a fila esta vazia
-int isEmptyStack(Stack* s){
-	return(s->size == 0? 0 : 1);
-} 
-int main (){
-	Stack * newStack;
-	int tam, recebe,i;
-	ItemType e = 0;
-	newStack = inicializaStack(newStack);
-	push(newStack, 5);
-	push(newStack, 10);
-	push(newStack, 20);
-	push(newStack, 30);
-	push(newStack, 40);
-	push(newStack, 50);
-
-	recebe = pop(newStack, &e);
-	if(recebe == 1){
-		printf("O elemento removido foi: %d\n", e);
-	}
-	else{
-		printf("Pilha vazia\n");
-	}
-
-	printStack(newStack);
-	printf("Digite o elemento a ser procurado:");
-	scanf("%d", &e);
-	recebe = containsStack(newStack, e);
-	if(recebe == 1){
-		printf("Elemento encontrado: %d\n", e);
-	}
-	else{
-		printf("Elemento nao encontrado!\n");
-	}
-
-	recebe = sizeStack(newStack);
-	printf("A quantidade de elementos eh: %d\n", recebe);
-
-	topStack(newStack, &e);
-	printf("topo: %d\n", e);
-	recebe = isEmptyStack(newStack);
-	if(recebe == 1){
-		printf("A pilha nao esta vazia\n");
-	}
-	else{
-		printf("A pilha esta vazia\n");
-	}
+/**
+ * Remove Elements.
+ *
+ * @param stack* stack, pointer of type stack.
+ * @param ItemType element, the element to be removed in the stack.
+ * And the removed element is returned by parameter.
+ *
+ * @returns 0 if element is successfully removed, or -1 if element was not removed.
+ */
+int pop(Stack* stack, ItemType* element){
+	if(stack->size == 0)return -1;
+	Node* newNode;
+	newNode = stack->top;
+	*element = newNode->data;
+	stack->top = newNode->next;
+	stack->size --;
+	free(newNode);
 	return 0;
+}
+
+/**
+ * Verifies that an element is in the stack.
+ *
+ * @param Stack* stack, a pointer of type stack.
+ * @param ItemType element, element sought in the stack.
+ *
+ * @returns 0 if element was found, or -1 if the element was not found.
+ */
+int containsStack(Stack* stack, ItemType element){
+	int i; 
+	Node* newNode;
+	newNode = stack->top;
+	for(i = 0; i < stack->size; i++){
+		if(element == newNode->data){
+			return 0;
+		}
+		newNode = newNode->next;
+	}
+	return -1;
+}
+
+/**
+ * Size stack.
+ *
+ * @param Stack* stack, a pointer of type stack.
+ *
+ * @returns size stack,
+ */
+int sizeStack(Stack* stack){
+	return stack->size;
+}
+
+/**
+ * Top element of the stack.
+ *
+ * @param Stack* stack, a pointer of type stack.
+ * @param ItemType element, parameter used to send the element found.
+ * The element will be sent by parameter.
+ *
+ */
+void topStack(Stack* stack, ItemType *element){
+	*element = stack->top->data;
+}
+
+/**
+ * Verifies that the stack is empty.
+ *
+ * @param Stack* stack, a pointer of type stack.
+ *
+ * @returns 0 if the stack is empty, or -1 if the stack is not empty
+ */
+int isEmptyStack(Stack* stack){
+	return(stack->size == 0? 0 : -1);
+} 
+
+/**
+ * Prints the elements of the stack .
+ *
+ * @param Stack* stack, a pointer of type stack.
+ *
+ */
+void printStack(Stack* stack){
+	int i;
+	Node* newNode;
+	newNode = stack->top;
+	for(i = 0; i < stack->size; i++){
+		printf("%d\n", newNode->data);
+		newNode = newNode->next;
+	}
 }

@@ -1,0 +1,14 @@
+The C programming language includes a very limited standard library in
+comparison to other modern programming languages.  This is a collection of
+common Computer Science algorithms which may be used in C projects.
+
+Copyright (C) 2014, Guilherme Castro Diniz.
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation (FSF); in version 2 of the
+license.
+This program is distributed in the hope that it can be useful,
+but WITHOUT ANY IMPLIED WARRANTY OF ADEQUATION TO ANY
+MARKET OR APPLICATION IN PARTICULAR. See the
+GNU General Public License for more details.
+<http://www.gnu.org/licenses/>

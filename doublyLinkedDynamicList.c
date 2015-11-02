@@ -1,3 +1,18 @@
+/*
+   Copyright (C) 2014, Guilherme Castro Diniz.
+
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation (FSF); in version 2 of the
+   license.
+
+   This program is distributed in the hope that it can be useful,
+   but WITHOUT ANY IMPLIED WARRANTY OF ADEQUATION TO ANY
+   MARKET OR APPLICATION IN PARTICULAR. See the
+   GNU General Public License for more details.
+   <http://www.gnu.org/licenses/>
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #define ItemType int
@@ -66,7 +81,7 @@ void addList(List* l, ItemType e, int index){
 		l->size++;
 	}
 	else{
-	aux = l->first->next;
+		aux = l->first->next;
 		for(i = 1; i < l->size; i++){
 			if(index == i){
 				new->next = aux;
@@ -76,7 +91,7 @@ void addList(List* l, ItemType e, int index){
 				l->size++;
 				break;
 			}
-		aux = aux->next;
+			aux = aux->next;
 		}
 	}
 }
@@ -90,9 +105,9 @@ int removeList(List* l, ItemType* e, int index){
 		free(l->first);
 		l->first = aux;
 		l->first->prev = NULL;
-			if(l->size == 1){
-				l->last = l->first;		
-			}
+		if(l->size == 1){
+			l->last = l->first;		
+		}
 		l->size --;
 		return 1;	
 	}
@@ -100,9 +115,9 @@ int removeList(List* l, ItemType* e, int index){
 	else	if(index > l->size || index < 0){
 		return 0;	
 	}
-	
+
 	else{
-	aux = l->first->next;
+		aux = l->first->next;
 		for(i = 1; i < l->size; i++){
 			if(i == index){
 				*e = aux->data;
@@ -111,7 +126,7 @@ int removeList(List* l, ItemType* e, int index){
 				l->size--;
 				return 1;
 			}
-		aux = aux->next;
+			aux = aux->next;
 		}
 	}
 }
@@ -132,9 +147,9 @@ int removeElementList(List* l, ItemType e){
 			l->size--;
 			return 1;
 		}		
-	aux = aux->next;
+		aux = aux->next;
 	}
-return 0;
+	return 0;
 }
 
 //ele devolve o elemento de acordo com o indice
@@ -150,7 +165,7 @@ int getList(List* l, int index, ItemType* e){
 				*e = aux->data;
 				return 1;
 			}
-		aux = aux->next;
+			aux = aux->next;
 		}
 	}
 }
@@ -168,7 +183,7 @@ int setList(List* l, int index, ItemType e){
 				aux->data = e;
 				return 1;
 			}
-		aux = aux->next;
+			aux = aux->next;
 		}
 	}
 }	
@@ -178,12 +193,12 @@ int indexOfList(List* l, ItemType e){
 	int i;
 	Node* aux = l->first;
 	for(i = 0; i < l->size; i++){
-			if(aux->data == e){
-				return i;
-			}
+		if(aux->data == e){
+			return i;
+		}
 		aux = aux->next;
 	}
-return -1;
+	return -1;
 }
 
 //procura um elemento na lista
@@ -191,9 +206,9 @@ int containsList(List* l, ItemType e){
 	Node* aux = l->first;
 	while(aux != NULL){
 		if(e == aux->data)return 1;
-	aux = aux->next;
+		aux = aux->next;
 	}
-return 0;
+	return 0;
 }
 
 //retorna o tatal de elementos
@@ -204,7 +219,7 @@ int sizeList(List* l){
 //verifica se a lista está vazia
 int isEmptyList(List* l){
 	if(l->size == 0) return 1;
-return 0;
+	return 0;
 }
 
 //imprime lista
@@ -243,9 +258,9 @@ int main(){
 	else{
 		printf("indice invalido!");
 	}
-	
+
 	recebe = removeElementList(newList, 590);
-		if(recebe == 0){
+	if(recebe == 0){
 		printf("o elemento nao encontrado\n");
 	}
 
@@ -289,5 +304,5 @@ int main(){
 		printf("lista nao esta vazia\n");
 	}
 	printList(newList);
-return 0;
+	return 0;
 }

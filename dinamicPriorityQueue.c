@@ -1,3 +1,18 @@
+/*
+   Copyright (C) 2014, Guilherme Castro Diniz.
+
+   This program is free software; you can redistribute it and/or
+   modify it under the terms of the GNU General Public License as
+   published by the Free Software Foundation (FSF); in version 2 of the
+   license.
+
+   This program is distributed in the hope that it can be useful,
+   but WITHOUT ANY IMPLIED WARRANTY OF ADEQUATION TO ANY
+   MARKET OR APPLICATION IN PARTICULAR. See the
+   GNU General Public License for more details.
+   <http://www.gnu.org/licenses/>
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #define ItemType int
@@ -20,7 +35,7 @@ Queue *inicializaQueue(Queue* q){
 	p->first = NULL;
 	p->last = NULL;
 	p->size = 0;
-return p;	
+	return p;	
 }
 //insere elementos
 int enQueue(Queue* q, ItemType e){
@@ -40,20 +55,20 @@ int enQueue(Queue* q, ItemType e){
 	}
 
 	if(q->first->data > e){
-			new->next = q->first;
-			q->first = new;
-			q->size++;
-			return 1;
-		}
+		new->next = q->first;
+		q->first = new;
+		q->size++;
+		return 1;
+	}
 
 	if(q->last->data < e){
-			q->last->next = new;
-			q->last = new;
-			new->next = NULL;
-			q->size++;
-			return 1;
-		}
-	
+		q->last->next = new;
+		q->last = new;
+		new->next = NULL;
+		q->size++;
+		return 1;
+	}
+
 	anterior = q->first;
 	aux = q->first->next;
 	while(aux->data < e){
@@ -63,8 +78,8 @@ int enQueue(Queue* q, ItemType e){
 	new->next = aux;	
 	anterior->next = new;
 	q->size++;
-		
-return 1;
+
+	return 1;
 }
 
 int deQueue(Queue* q, ItemType*e){
@@ -102,7 +117,7 @@ int contains(Queue* q, ItemType e){
 			new = new->next;
 		}
 	}
-return -1;
+	return -1;
 }
 
 //retorna o tamanho fa fila;
@@ -112,7 +127,7 @@ int sizeQueue(Queue* q){
 
 //verifica se a pilha está vazia
 int isEmptyQueue(Queue* q){
- return(q->size == 0? 1 : 0);
+	return(q->size == 0? 1 : 0);
 }
 
 //imprime Queue
@@ -172,6 +187,6 @@ int main (){
 	else{
 		printf("Fila está vazia\n");
 	}
-return 0;
+	return 0;
 }
 

@@ -42,18 +42,18 @@ int binarySearch(int number, int* vector, int begin, int end){
 	}
 }
 int main(){
-	int tamanhoVector, i, number;
+	int sizeVector, i, number;
 	int* vector;
 
 	printf("Enter the size of the vector of search: ");
-	scanf(" %d", &tamanhoVector);
-	if(tamanhoVector < 0){
+	scanf(" %d", &sizeVector);
+	if(sizeVector < 0){
 		printf("Invalid value!\n");
 		return 0;
 	}
 	else{
-		vector = (int*) calloc(tamanhoVector, sizeof(int));
-		for(i = 0; i <= tamanhoVector; i++){
+		vector = (int*) calloc(sizeVector, sizeof(int));
+		for(i = 0; i <= sizeVector; i++){
 			vector[i] = i;	
 		}
 	}
@@ -61,11 +61,11 @@ int main(){
 	printf("Enter the number there be sought: ");
 	scanf(" %d", &number);
 
-	if (number < 0 || number > tamanhoVector){
+	if (number < 0 || number > sizeVector){
 		printf("Invalid number!\n");
 		return 0;
 	}
 
-	printf ("The value is: %d \n", binarySearch(number, vector, 0, tamanhoVector));
+	printf ("The value is: %d \n", binarySearch(number, vector, 0, sizeVector));
 	return 0;
 }

@@ -15,7 +15,7 @@
 
 #include<stdio.h>
 #include<stdlib.h>
-#define ItemType char
+#define ItemType int
 
 typedef struct node{
 	ItemType data;
@@ -41,3 +41,4 @@ int containsList(List* list, ItemType element);
 int sizeList(List* list);
 int isEmptyList(List* list);
 void printList(List* list);
+List* copyList(List* list, List* newList);

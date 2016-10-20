@@ -151,6 +151,7 @@ int removeList(List* list, ItemType* element, int index){
 			aux = aux->next;
 		}
 	}
+	return -2;
 }
 
 /**
@@ -211,6 +212,7 @@ int getList(List* list, ItemType* element, int index){
 			aux = aux->next;
 		}
 	}
+	return -2;
 }
 
 /**
@@ -238,6 +240,7 @@ int setList(List* list, ItemType element, int index){
 			aux = aux->next;
 		}
 	}
+	return -2;
 }
 
 /**
@@ -311,10 +314,18 @@ int isEmptyList(List* list){
  *
  */
 void printList(List* list){
-	int i;
 	Node* newNode = list->first;
 	while(newNode != NULL){
-		printf("%d\n", newNode->data);
+		printf("%d ", newNode->data);
 		newNode = newNode->next;
 	}
+}
+
+List* copyList(List* list, List* newList){
+	Node* newNode = list->first;
+	while(newNode != NULL){
+		addLastList(newList,newNode->data);
+		newNode = newNode->next;
+	}
+	return newList;
 }
